@@ -3,23 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>課題くん</title>
+<title>課題管理ツール</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>課題くん</h1>
+    <h1>課題管理ツール</h1>
     <label for="start-date">開始日:</label>
     <input type="date" id="start-date">
     <label for="end-date">終了日:</label>
     <input type="date" id="end-date">
-    <h2>増やす曜日</h2>
+    <h2>曜日ごとの設定</h2>
     <div class="checkboxes">
+      <label><input type="checkbox" name="day" value="Sunday"> 日曜日</label>
       <label><input type="checkbox" name="day" value="Monday"> 月曜日</label>
       <label><input type="checkbox" name="day" value="Tuesday"> 火曜日</label>
       <label><input type="checkbox" name="day" value="Wednesday"> 水曜日</label>
       <label><input type="checkbox" name="day" value="Thursday"> 木曜日</label>
       <label><input type="checkbox" name="day" value="Friday"> 金曜日</label>
+      <label><input type="checkbox" name="day" value="Saturday"> 土曜日</label>
     </div>
     <h2>教科ごとの設定</h2>
     <div id="subject-settings"></div>
