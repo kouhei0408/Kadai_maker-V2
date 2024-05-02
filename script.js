@@ -54,29 +54,47 @@ function generateTasks() {
     }
   });
 
-  const table = document.createElement('table');
-  const headerRow = table.insertRow();
-  headerRow.insertCell().textContent = '日付';
+  const calendarGrid = document.createElement('div');
+  calendarGrid.classList.add('calendar-grid');
+
+  const headerRow = document.createElement('div');
+  headerRow.classList.add('header-row');
+  headerRow.textContent = '日付';
   tasks.forEach((task, index) => {
     if (task) {
-      headerRow.insertCell().textContent = ['日', '月', '火', '水', '木', '金', '土'][index];
+      const cell = document.createElement('div');
+      cell.classList.add('header-cell');
+      cell.textContent = ['日', '月', '火', '水', '木', '金', '土'][index];
+      headerRow.appendChild(cell);
     }
   });
+  calendarGrid.appendChild(headerRow);
 
   for (let i = 0; i < diffDays; i++) {
     const currentDate = new Date(start.getTime() + (i * 24 * 60 * 60 * 1000));
     const currentDayIndex = currentDate.getDay();
 
-    const row = table.insertRow();
-    row.insertCell().textContent = currentDate.toDateString();
+    const row = document.createElement('div');
+    row.classList.add('grid-row');
+    const dateCell = document.createElement('div');
+    dateCell.classList.add('date-cell');
+    dateCell.textContent = currentDate.toDateString();
+    row.appendChild(dateCell);
     tasks.forEach(task => {
       if (task) {
         const countObj = task.counts[currentDate.toDateString()] || {};
-        const total = Object.values(countObj).reduce((acc, val) => acc + val, 0);
-        row.insertCell().textContent = total;
+        const cell = document.createElement('div');
+        cell.classList.add('grid-cell');
+        let cellContent = '';
+        for (const [subject, pages] of Object.entries(countObj)) {
+          cellContent += `${subject}: ${pages}ページ `;
+        }
+        cell.textContent = cellContent.trim();
+        row.appendChild(cell);
       }
     });
+    calendarGrid.appendChild(row);
   }
 
-  taskCalendar.appendChild(table);
+  taskCalendar.appendChild(calendarGrid);
 }
