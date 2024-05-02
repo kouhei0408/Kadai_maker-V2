@@ -27,10 +27,9 @@ function generateTasks() {
 
   const start = new Date(startDate);
   const end = new Date(endDate);
-  const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)); // Calculate the number of days
+  const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1; // Calculate the number of days including end date
 
   let tasks = [];
-  let currentDay = start.getDay(); // Starting day of the week (0: Sunday, 1: Monday, ..., 6: Saturday)
 
   daysOfWeek.forEach(day => {
     const dayIndex = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(day.value);
@@ -45,7 +44,11 @@ function generateTasks() {
     if (subjectName !== '' && !isNaN(pages) && pages > 0) {
       tasks.forEach(task => {
         if (task) {
-          task.counts[subjectName] = pages;
+          const dateString = task.date.toDateString();
+          if (!task.counts[dateString]) {
+            task.counts[dateString] = {};
+          }
+          task.counts[dateString][subjectName] = pages;
         }
       });
     }
@@ -68,8 +71,9 @@ function generateTasks() {
     row.insertCell().textContent = currentDate.toDateString();
     tasks.forEach(task => {
       if (task) {
-        const count = task.counts[currentDate.toDateString()] || 0;
-        row.insertCell().textContent = count;
+        const countObj = task.counts[currentDate.toDateString()] || {};
+        const total = Object.values(countObj).reduce((acc, val) => acc + val, 0);
+        row.insertCell().textContent = total;
       }
     });
   }
