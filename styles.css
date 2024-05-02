@@ -1,24 +1,23 @@
-body {
-  font-family: Arial, sans-serif;
+.calendar-grid {
+  display: grid;
+  grid-template-columns: auto repeat(7, 1fr);
+  gap: 5px;
 }
 
-.container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 20px;
+.header-row {
+  display: grid;
+  grid-template-columns: auto repeat(6, 1fr);
+  gap: 5px;
+  font-weight: bold;
+}
+
+.grid-row {
+  display: grid;
+  grid-template-columns: auto repeat(6, 1fr);
+  gap: 5px;
+}
+
+.grid-cell {
   border: 1px solid #ccc;
-}
-
-.checkboxes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-button {
-  margin-top: 10px;
-}
-
-#task-calendar {
-  margin-top: 20px;
+  padding: 5px;
 }
